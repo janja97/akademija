@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="bs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BrainSpark Akademija — Edukacija i razvoj djece</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --purple: #7c3aed;
+    --purple-light: #a855f7;
+    --purple-pale: #f3e8ff;
+    --yellow: #fbbf24;
+    --yellow-pale: #fef9c3;
+    --teal: #0d9488;
+    --teal-light: #5eead4;
+    --orange: #f97316;
+    --pink: #ec4899;
+    --white: #ffffff;
+    --light: #faf9ff;
+    --dark: #1e1b4b;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+  body { background:var(--light); color:var(--dark); font-family:'Nunito', sans-serif; overflow-x:hidden; }
+
+  /* TOPBAR */
+  .topbar { background:var(--purple); padding:0.6rem 2rem; text-align:center; font-size:0.82rem; color:rgba(255,255,255,0.9); font-weight:600; }
+  .topbar span { color:var(--yellow); }
+
+  /* NAV */
+  nav {
+    background:var(--white); box-shadow:0 2px 20px rgba(124,58,237,0.1);
+    position:sticky; top:0; z-index:100; padding:0 2rem;
+  }
+  .nav-inner {
+    max-width:1200px; margin:0 auto;
+    display:flex; align-items:center; justify-content:space-between; height:70px;
+  }
+  .nav-logo {
+    display:flex; align-items:center; gap:0.6rem;
+    font-family:'Nunito', sans-serif; font-weight:900; font-size:1.4rem; color:var(--purple);
+    text-decoration:none;
+  }
+  .logo-spark { background:linear-gradient(135deg, var(--purple), var(--pink)); color:white; width:36px; height:36px; border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:1.2rem; }
+  .nav-links { display:flex; gap:1.5rem; }
+  .nav-links a { font-size:0.88rem; font-weight:700; color:var(--dark); text-decoration:none; opacity:0.7; transition:opacity 0.2s, color 0.2s; }
+  .nav-links a:hover { opacity:1; color:var(--purple); }
+  .nav-cta { background:linear-gradient(135deg, var(--purple), var(--purple-light)); color:white!important; opacity:1!important; padding:0.6rem 1.5rem; border-radius:30px; font-weight:800!important; }
+  @media(max-width:768px) { .nav-links { display:none; } }
+
+  /* HERO */
+  .hero {
+    background:linear-gradient(135deg, #1e1b4b 0%, #4c1d95 50%, #7c3aed 100%);
+    padding:5rem 2rem 0;
+    overflow:hidden; position:relative;
+    min-height:85vh;
+    display:flex; align-items:center;
+  }
+  .hero::before {
+    content:'';
+    position:absolute; inset:0;
+    background-image: radial-gradient(circle at 20% 50%, rgba(251,191,36,0.1) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(236,72,153,0.1) 0%, transparent 50%);
+  }
+  /* Floating bubbles */
+  .bubble {
+    position:absolute; border-radius:50%; opacity:0.15;
+    animation:float 6s ease-in-out infinite;
+  }
+  .b1 { width:150px; height:150px; background:var(--yellow); top:10%; left:5%; animation-delay:0s; }
+  .b2 { width:80px; height:80px; background:var(--pink); top:60%; left:2%; animation-delay:1s; }
+  .b3 { width:100px; height:100px; background:var(--teal-light); top:20%; right:15%; animation-delay:2s; }
+  .b4 { width:60px; height:60px; background:var(--orange); top:70%; right:5%; animation-delay:0.5s; }
+  @keyframes float { 0%,100%{transform:translateY(0) rotate(0deg)} 50%{transform:translateY(-20px) rotate(5deg)} }
+
+  .hero-inner { max-width:1200px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:4rem; align-items:center; position:relative; z-index:2; }
+  @media(max-width:768px) { .hero-inner { grid-template-columns:1fr; } }
+  .hero-left { padding-bottom:4rem; }
+  .hero-badge {
+    display:inline-flex; align-items:center; gap:0.5rem;
+    background:rgba(251,191,36,0.2); border:1px solid rgba(251,191,36,0.4);
+    color:var(--yellow); padding:0.4rem 1rem; border-radius:30px;
+    font-size:0.8rem; font-weight:700; margin-bottom:1.5rem;
+  }
+  .hero-title {
+    font-size:clamp(2.5rem, 5vw, 4rem);
+    font-weight:900; color:var(--white); line-height:1.1;
+    margin-bottom:1.5rem;
+  }
+  .hero-title .highlight { color:var(--yellow); position:relative; }
+  .hero-sub { font-size:1rem; color:rgba(255,255,255,0.75); line-height:1.8; margin-bottom:2.5rem; max-width:450px; font-weight:600; }
+  .hero-btns { display:flex; gap:1rem; flex-wrap:wrap; margin-bottom:2.5rem; }
+  .btn-yellow { background:var(--yellow); color:var(--dark); padding:1rem 2.5rem; border-radius:30px; font-weight:900; font-size:0.95rem; text-decoration:none; transition:transform 0.3s, box-shadow 0.3s; display:inline-block; }
+  .btn-yellow:hover { transform:translateY(-3px); box-shadow:0 10px 30px rgba(251,191,36,0.4); }
+  .btn-white-ghost { border:2px solid rgba(255,255,255,0.3); color:var(--white); padding:1rem 2rem; border-radius:30px; font-weight:700; font-size:0.9rem; text-decoration:none; transition:border-color 0.3s; display:inline-block; }
+  .btn-white-ghost:hover { border-color:var(--yellow); color:var(--yellow); }
+  .hero-features { display:flex; gap:2rem; flex-wrap:wrap; }
+  .hero-feat { display:flex; align-items:center; gap:0.5rem; color:rgba(255,255,255,0.8); font-size:0.85rem; font-weight:700; }
+  .feat-dot { width:8px; height:8px; border-radius:50%; background:var(--teal-light); flex-shrink:0; }
+
+  .hero-right { display:flex; justify-content:center; align-items:flex-end; }
+  .hero-img {
+    width:100%; max-width:420px; height:480px;
+    background:url('https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=800&q=80') center/cover;
+    border-radius:30px 30px 0 0;
+    position:relative;
+  }
+  .hero-cards {
+    position:absolute; display:flex; flex-direction:column; gap:1rem;
+    right:-20px; top:20%;
+  }
+  .hero-card {
+    background:white; border-radius:16px; padding:0.75rem 1rem;
+    box-shadow:0 10px 30px rgba(0,0,0,0.1);
+    display:flex; align-items:center; gap:0.75rem;
+    white-space:nowrap;
+    animation:float 4s ease-in-out infinite;
+  }
+  .hero-card:nth-child(2) { animation-delay:1s; }
+  .hc-icon { font-size:1.4rem; }
+  .hc-label { font-size:0.78rem; font-weight:800; color:var(--dark); display:block; }
+  .hc-sub { font-size:0.65rem; font-weight:600; color:#888; }
+
+  /* PROGRAMMES */
+  .programmes { max-width:1200px; margin:6rem auto; padding:0 2rem; }
+  .section-label { font-size:0.7rem; letter-spacing:3px; text-transform:uppercase; color:var(--purple); font-weight:800; display:block; margin-bottom:0.5rem; }
+  .section-title { font-size:clamp(1.8rem, 4vw, 2.5rem); font-weight:900; color:var(--dark); }
+  .section-header { display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:3rem; flex-wrap:wrap; gap:1rem; }
+  .programmes-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(260px, 1fr)); gap:1.5rem; }
+  .prog-card {
+    border-radius:24px; padding:2rem; position:relative; overflow:hidden;
+    transition:transform 0.3s, box-shadow 0.3s;
+  }
+  .prog-card:hover { transform:translateY(-6px); box-shadow:0 20px 50px rgba(0,0,0,0.12); }
+  .prog-card.purple { background:linear-gradient(135deg, var(--purple-pale), #ede9fe); }
+  .prog-card.yellow { background:linear-gradient(135deg, var(--yellow-pale), #fef3c7); }
+  .prog-card.teal { background:linear-gradient(135deg, #ccfbf1, #e0fdf4); }
+  .prog-card.pink { background:linear-gradient(135deg, #fce7f3, #fdf2f8); }
+  .prog-card.orange { background:linear-gradient(135deg, #ffedd5, #fff7ed); }
+  .prog-icon { font-size:3rem; margin-bottom:1rem; display:block; }
+  .prog-age { font-size:0.7rem; font-weight:800; text-transform:uppercase; letter-spacing:2px; margin-bottom:0.5rem; color:var(--purple); }
+  .prog-card.yellow .prog-age { color:var(--orange); }
+  .prog-card.teal .prog-age { color:var(--teal); }
+  .prog-card.pink .prog-age { color:var(--pink); }
+  .prog-card.orange .prog-age { color:var(--orange); }
+  .prog-name { font-size:1.2rem; font-weight:900; color:var(--dark); margin-bottom:0.5rem; }
+  .prog-desc { font-size:0.83rem; color:#555; line-height:1.7; font-weight:600; margin-bottom:1rem; }
+  .prog-price { font-size:1.1rem; font-weight:900; color:var(--purple); }
+  .prog-card.yellow .prog-price { color:var(--orange); }
+  .prog-card.teal .prog-price { color:var(--teal); }
+  .prog-per { font-size:0.7rem; color:#888; font-weight:600; }
+
+  /* STATS */
+  .stats-bar { background:var(--purple); padding:3rem 2rem; }
+  .stats-inner { max-width:1200px; margin:0 auto; display:grid; grid-template-columns:repeat(auto-fit, minmax(180px, 1fr)); gap:2rem; text-align:center; }
+  .stat-emoji { font-size:2rem; margin-bottom:0.5rem; display:block; }
+  .stat-n { font-size:2.5rem; font-weight:900; color:var(--yellow); display:block; }
+  .stat-l { font-size:0.8rem; font-weight:700; color:rgba(255,255,255,0.7); }
+
+  /* WHY US */
+  .why-section { max-width:1200px; margin:6rem auto; padding:0 2rem; }
+  .why-grid { display:grid; grid-template-columns:1fr 1fr; gap:4rem; align-items:center; margin-top:3rem; }
+  @media(max-width:768px) { .why-grid { grid-template-columns:1fr; gap:2rem; } }
+  .why-img { height:500px; background:url('https://images.unsplash.com/photo-1509062522246-3755977927d7?w=800&q=80') center/cover; border-radius:24px; }
+  .why-features { display:flex; flex-direction:column; gap:1.5rem; }
+  .why-item { display:flex; gap:1rem; align-items:flex-start; padding:1.5rem; background:var(--white); border-radius:16px; box-shadow:0 4px 20px rgba(124,58,237,0.06); }
+  .why-icon { font-size:2rem; flex-shrink:0; }
+  .why-title { font-size:1rem; font-weight:900; color:var(--dark); margin-bottom:0.3rem; }
+  .why-text { font-size:0.82rem; color:#666; line-height:1.7; font-weight:600; }
+
+  /* SCHEDULE */
+  .schedule-section { background:var(--purple-pale); padding:6rem 2rem; }
+  .schedule-inner { max-width:1000px; margin:0 auto; }
+  .schedule-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(280px, 1fr)); gap:1.5rem; margin-top:3rem; }
+  .sched-card { background:white; border-radius:20px; padding:1.75rem; border:2px solid transparent; transition:border-color 0.3s, transform 0.3s; }
+  .sched-card:hover { border-color:var(--purple-light); transform:translateY(-3px); }
+  .sched-day { font-size:0.7rem; font-weight:800; letter-spacing:2px; text-transform:uppercase; color:var(--purple); margin-bottom:1rem; }
+  .sched-item { display:flex; justify-content:space-between; padding:0.6rem 0; border-bottom:1px solid #f0f0f0; }
+  .sched-name { font-size:0.85rem; font-weight:700; color:var(--dark); }
+  .sched-time { font-size:0.78rem; font-weight:600; color:#888; }
+
+  /* CTA */
+  .cta-section { background:linear-gradient(135deg, var(--purple) 0%, var(--pink) 100%); padding:6rem 2rem; text-align:center; }
+  .cta-inner { max-width:600px; margin:0 auto; }
+  .cta-title { font-size:clamp(2rem, 5vw, 3rem); font-weight:900; color:white; margin-bottom:1rem; }
+  .cta-sub { font-size:1rem; color:rgba(255,255,255,0.8); margin-bottom:2.5rem; line-height:1.7; font-weight:600; }
+  .cta-form { display:flex; gap:0; border-radius:50px; overflow:hidden; max-width:450px; margin:0 auto; box-shadow:0 10px 40px rgba(0,0,0,0.2); }
+  .cta-form input { flex:1; padding:1.1rem 1.5rem; border:none; font-family:'Nunito',sans-serif; font-size:0.9rem; font-weight:600; outline:none; }
+  .cta-form button { background:var(--yellow); border:none; padding:1.1rem 2rem; color:var(--dark); font-weight:900; font-size:0.9rem; cursor:pointer; font-family:'Nunito',sans-serif; transition:background 0.3s; }
+  .cta-form button:hover { background:#f59e0b; }
+
+  /* FOOTER */
+  footer { background:var(--dark); color:rgba(255,255,255,0.6); padding:3rem 2rem; }
+  .footer-inner { max-width:1200px; margin:0 auto; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:2rem; }
+  .footer-logo { font-weight:900; font-size:1.4rem; color:var(--white); display:flex; align-items:center; gap:0.5rem; }
+  .footer-info { font-size:0.8rem; line-height:2; font-weight:600; }
+  .footer-socials a { color:rgba(255,255,255,0.4); text-decoration:none; margin-left:1rem; font-size:1.2rem; transition:color 0.2s; }
+  .footer-socials a:hover { color:var(--yellow); }
+</style>
+</head>
+<body>
+
+<div class="topbar">🎉 Upisi za proljetni semestar su otvoreni! <span>Popust 15% za rano prijavljivanje do 28.02.</span> → <a href="#upisi" style="color:var(--yellow-pale);">Prijavi se odmah</a></div>
+
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">
+      <div class="logo-spark">⚡</div>
+      BrainSpark
+    </a>
+    <div class="nav-links">
+      <a href="#programi">Programi</a>
+      <a href="#raspored">Raspored</a>
+      <a href="#o-nama">O nama</a>
+      <a href="#upisi" class="nav-cta">📝 Upiši se</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="bubble b1"></div>
+  <div class="bubble b2"></div>
+  <div class="bubble b3"></div>
+  <div class="bubble b4"></div>
+  <div class="hero-inner">
+    <div class="hero-left">
+      <span class="hero-badge">⭐ Preko 500 sretnih učenika</span>
+      <h1 class="hero-title">Budućnost počinje<br><span class="highlight">ovdje — igrom<br>i znanjem!</span></h1>
+      <p class="hero-sub">Inovativni programi za djecu od 3 do 15 godina. Matematika, kodiranje, engleski, kreativnost i sport. Učenje kroz igru!</p>
+      <div class="hero-btns">
+        <a href="#upisi" class="btn-yellow">🚀 Besplatni probni čas</a>
+        <a href="#programi" class="btn-white-ghost">Pogledaj programe</a>
+      </div>
+      <div class="hero-features">
+        <span class="hero-feat"><span class="feat-dot"></span> Mala grupe (max 8 djece)</span>
+        <span class="hero-feat"><span class="feat-dot" style="background:var(--yellow)"></span> Certificirani nastavnici</span>
+        <span class="hero-feat"><span class="feat-dot" style="background:var(--pink)"></span> Individualni pristup</span>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="hero-img">
+        <div class="hero-cards">
+          <div class="hero-card">
+            <span class="hc-icon">🧮</span>
+            <div><span class="hc-label">Matematika</span><span class="hc-sub">Danas u 16:00</span></div>
+          </div>
+          <div class="hero-card">
+            <span class="hc-icon">💻</span>
+            <div><span class="hc-label">Scratch kodiranje</span><span class="hc-sub">Sutra u 15:00</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-bar">
+  <div class="stats-inner">
+    <div><span class="stat-emoji">👦</span><span class="stat-n">500+</span><span class="stat-l">Aktivnih učenika</span></div>
+    <div><span class="stat-emoji">📚</span><span class="stat-n">18</span><span class="stat-l">Programa</span></div>
+    <div><span class="stat-emoji">🏆</span><span class="stat-n">8</span><span class="stat-l">Godina iskustva</span></div>
+    <div><span class="stat-emoji">⭐</span><span class="stat-n">4.9</span><span class="stat-l">Prosječna ocjena</span></div>
+  </div>
+</div>
+
+<!-- PROGRAMMES -->
+<section class="programmes" id="programi">
+  <div class="section-header">
+    <div>
+      <span class="section-label">Naši programi</span>
+      <h2 class="section-title">Nešto za svako dijete 🌟</h2>
+    </div>
+    <a href="#" style="font-size:0.85rem; color:var(--purple); font-weight:800; text-decoration:none; border-bottom:2px solid currentColor;">Svi programi →</a>
+  </div>
+  <div class="programmes-grid">
+    <div class="prog-card purple">
+      <span class="prog-icon">🧮</span>
+      <div class="prog-age">Uzrast 5–12 god</div>
+      <div class="prog-name">Matematika & logika</div>
+      <div class="prog-desc">Abakus, mentalna matematika, logičke puzzle i takmičarska priprema. Djeca uče brzo i s radošću.</div>
+      <div class="prog-price">120 KM <span class="prog-per">/ mjesec</span></div>
+    </div>
+    <div class="prog-card yellow">
+      <span class="prog-icon">💻</span>
+      <div class="prog-age">Uzrast 7–15 god</div>
+      <div class="prog-name">Kodiranje & robotika</div>
+      <div class="prog-desc">Scratch, Python osnove, Arduino i Lego Mindstorms robotika. Budući programeri počinju ovdje.</div>
+      <div class="prog-price">140 KM <span class="prog-per">/ mjesec</span></div>
+    </div>
+    <div class="prog-card teal">
+      <span class="prog-icon">🗣️</span>
+      <div class="prog-age">Uzrast 3–15 god</div>
+      <div class="prog-name">Engleski jezik</div>
+      <div class="prog-desc">Od malih pjevušaka (3+) do Cambridge pripreme. Native speaker nastavnici, interaktivna metoda.</div>
+      <div class="prog-price">100 KM <span class="prog-per">/ mjesec</span></div>
+    </div>
+    <div class="prog-card pink">
+      <span class="prog-icon">🎨</span>
+      <div class="prog-age">Uzrast 4–12 god</div>
+      <div class="prog-name">Kreativnost & likovna</div>
+      <div class="prog-desc">Crtanje, slikanje, grafički dizajn i digitalna umjetnost. Razvijamo kreativno mišljenje.</div>
+      <div class="prog-price">90 KM <span class="prog-per">/ mjesec</span></div>
+    </div>
+    <div class="prog-card orange">
+      <span class="prog-icon">🧠</span>
+      <div class="prog-age">Uzrast 6–14 god</div>
+      <div class="prog-name">Govorništvo & debata</div>
+      <div class="prog-desc">Javni govor, prezentacijske vještine, samopouzdanje i kritičko mišljenje. Budući lideri!</div>
+      <div class="prog-price">110 KM <span class="prog-per">/ mjesec</span></div>
+    </div>
+    <div class="prog-card purple" style="background:linear-gradient(135deg,#e0e7ff,#c7d2fe)">
+      <span class="prog-icon">🔬</span>
+      <div class="prog-age">Uzrast 8–15 god</div>
+      <div class="prog-name">STEM nauka</div>
+      <div class="prog-desc">Eksperimenti, hemija, fizika i biologija kroz zabavne projekte. Laboratorija s pravom opremom.</div>
+      <div class="prog-price">130 KM <span class="prog-per">/ mjesec</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY US -->
+<section class="why-section" id="o-nama">
+  <span class="section-label">Zašto BrainSpark?</span>
+  <h2 class="section-title">Pristup koji zaista funkcioniše 💡</h2>
+  <div class="why-grid">
+    <div class="why-img"></div>
+    <div class="why-features">
+      <div class="why-item"><span class="why-icon">👥</span><div><div class="why-title">Male grupe — max 8 učenika</div><div class="why-text">Svaki učenik dobiva pažnju nastavnika. Učenje postaje efikasnije kada se nastavnik može posvetiti svakom djetetu.</div></div></div>
+      <div class="why-item"><span class="why-icon">🎮</span><div><div class="why-title">Učenje kroz igru</div><div class="why-text">Gamifikacija, projekti i kreativne aktivnosti čine da djeca jedva čekaju doći na čas. Motivacija je ključ uspjeha.</div></div></div>
+      <div class="why-item"><span class="why-icon">📊</span><div><div class="why-title">Redovni izvještaji za roditelje</div><div class="why-text">Aplikacija i mjesečni izvještaji. Pratite napredak vašeg djeteta i komunicirajte s nastavnicima u svakom trenutku.</div></div></div>
+      <div class="why-item"><span class="why-icon">🏅</span><div><div class="why-title">Certificirani nastavnici</div><div class="why-text">Svi nastavnici imaju pedagoško obrazovanje i godišnju obuku. Odabrani su s iskustvom u radu s djecom.</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- SCHEDULE -->
+<section class="schedule-section" id="raspored">
+  <div class="schedule-inner">
+    <div style="text-align:center; margin-bottom:1rem;">
+      <span class="section-label">Tjedni raspored</span>
+      <h2 class="section-title">Pronađite termin koji vam odgovara 📅</h2>
+    </div>
+    <div class="schedule-grid">
+      <div class="sched-card">
+        <div class="sched-day">📅 Ponedjeljak & Srijeda</div>
+        <div class="sched-item"><span class="sched-name">Matematika (5–8 god)</span><span class="sched-time">15:30 – 16:30</span></div>
+        <div class="sched-item"><span class="sched-name">Engleski Mali (3–5 god)</span><span class="sched-time">16:00 – 17:00</span></div>
+        <div class="sched-item"><span class="sched-name">Kodiranje — Scratch</span><span class="sched-time">17:00 – 18:30</span></div>
+        <div class="sched-item"><span class="sched-name">STEM nauka</span><span class="sched-time">17:30 – 19:00</span></div>
+      </div>
+      <div class="sched-card">
+        <div class="sched-day">📅 Utorak & Četvrtak</div>
+        <div class="sched-item"><span class="sched-name">Engleski (6–10 god)</span><span class="sched-time">15:00 – 16:30</span></div>
+        <div class="sched-item"><span class="sched-name">Kreativnost & likovna</span><span class="sched-time">15:30 – 17:00</span></div>
+        <div class="sched-item"><span class="sched-name">Python kodiranje</span><span class="sched-time">17:00 – 18:30</span></div>
+        <div class="sched-item"><span class="sched-name">Matematika (9–12 god)</span><span class="sched-time">17:30 – 19:00</span></div>
+      </div>
+      <div class="sched-card">
+        <div class="sched-day">📅 Subota</div>
+        <div class="sched-item"><span class="sched-name">Robotika — Lego</span><span class="sched-time">09:00 – 11:00</span></div>
+        <div class="sched-item"><span class="sched-name">Govorništvo (10–14)</span><span class="sched-time">10:00 – 11:30</span></div>
+        <div class="sched-item"><span class="sched-name">Cambridge priprema</span><span class="sched-time">11:00 – 13:00</span></div>
+        <div class="sched-item"><span class="sched-name">STEM vikend radionica</span><span class="sched-time">11:30 – 13:30</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section" id="upisi">
+  <div class="cta-inner">
+    <h2 class="cta-title">Prijavite dijete danas! 🎉</h2>
+    <p class="cta-sub">Unesite email i mi ćemo vas kontaktirati za besplatni probni čas. Bez obaveza, bez skrivenih troškova!</p>
+    <form class="cta-form" onsubmit="alert('Super! Uskoro ćemo vas kontaktirati za probni čas 🎉'); return false;">
+      <input type="email" placeholder="vasemail@primjer.ba" />
+      <button type="submit">Prijavi se! 🚀</button>
+    </form>
+    <p style="margin-top:1.5rem; font-size:0.82rem; color:rgba(255,255,255,0.7); font-weight:700;">📞 +387 61 222 333 &nbsp;|&nbsp; 📍 Braće Fejića 12, Mostar</p>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">⚡ BrainSpark Akademija</div>
+    <div class="footer-info">
+      📍 Braće Fejića 12, Mostar &nbsp;|&nbsp; 📞 +387 61 222 333<br>
+      ✉️ info@brainspark.ba &nbsp;|&nbsp; Pon–Sub: 09:00 – 20:00
+    </div>
+    <div class="footer-socials">
+      <a href="#">📘</a>
+      <a href="#">📸</a>
+      <a href="#">▶️</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
